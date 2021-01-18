@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Date" %>
+<%-- <%@ page import="java.util.Date" %> --%>
+<%@ page import="java.util.Calendar" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,15 +24,18 @@
 	%>
 	
 	
-	<nav class="navbar navbar-expand navbar-dark bg-dark">
+	<!-- <nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="./welcome.jsp">Home</a>
 			</div>
 		</div>
-	</nav>
+	</nav> -->
+	
+	<%@ include file="menu.jsp" %>
+	
 	<div class="jumbotron">
-		<div class="container">
+		<div class="container text-center">
 			<h1><%=greeting %></h1>
 		</div>
 	</div>
@@ -39,16 +43,35 @@
 		<div class="text-center">
 			<h3><%=tagline %></h3>
 			<%
-			Date day = new Date();
 			String am_pm;
+			/* Date 클래스 대신 Calendar 클래스를 사용 */
+			/* Date day = new Date();
 			int hour = day.getHours();
 			int minute = day.getMinutes();
+			int second = day.getSeconds(); */
+			Calendar time = Calendar.getInstance();
+			int hour = time.get(Calendar.HOUR_OF_DAY);
+			int minute = time.get(Calendar.MINUTE);
+			int second = time.get(Calendar.SECOND);
+			
+			if (hour / 12 == 0) {
+				am_pm = "AM";
+			}
+			else {
+				am_pm = "PM";
+				hour = hour - 12;
+			}
+			
+			String CT = hour + ":" + minute + ":" + second + " " + am_pm;
+			out.println("현재 접속 시각 : " + CT + "\n");
 			%>
 		</div>
 		
 	</div>
-	<footer class="container">
+	
+	<%@ include file="footer.jsp" %>
+	<!-- <footer class="container">
 		<p>&copy; WebMarket</p>
-	</footer>
+	</footer> -->
 </body>
 </html>
