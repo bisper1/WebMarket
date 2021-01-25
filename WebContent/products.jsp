@@ -4,6 +4,7 @@
 <!-- JSP 파일에 자바 클래스를 사용할 수 있도록 선언 -->
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dto.Product" %>
+<%@ page import="dao.ProductRepository" %>
 
 <!-- 자바빈즈를 사용 -->
 <jsp:useBean id="productDAO" class="dao.ProductRepository" scope="session" />
@@ -28,7 +29,8 @@
 	<!-- ArrayList : 데이터를 저장하기 위한 자료 구조 중 한가지, 배열과 비슷함, Java의 배열(Array)은 크기가 설정되면 변경할 수 없지만 ArrayList는 크기를 동적으로 변경할 수 있음 -->
 	<!-- Product 클래스 타입으로 배열 생성 -->
 	<%
-	ArrayList<Product> listOfProduct = productDAO.getAllProducts();
+	ProductRepository dao = ProductRepository.getInstance();
+	ArrayList<Product> listOfProduct = dao.getAllProducts();
 	%>
 	<div class="container">
 		<div class="row" align="center">
